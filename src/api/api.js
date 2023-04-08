@@ -20,12 +20,11 @@ export const getTodo = async () => {
   const res = await axios.get(`https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos`, { headers })
   console.log(res.data)
   return res.data
-  // setTodos(res.data)
 }
 
 export const deleteTodo = async (id) => {
-  const res = await axios.delete(`https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/:id`, {
+  console.log(id)
+  const res = await axios.delete(`https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/${id}`, {
     headers,
   })
-  // setTodos(todos.filter((todo) => todo.id !== id))
 }

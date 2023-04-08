@@ -14,37 +14,26 @@ function TodoContent() {
 
   const fetchTodo = async () => {
     const res = await getTodo()
-    // console.log('data', res)
     setTodos(res)
   } // api/getTodo에서 set을 사용못하니까 fetchTodo로 만들어서 사용함
-
-  const fetchDelete = async (id) => {
-    const res = await deleteTodo(id)
-    setTodos(res)
-  }
 
   useEffect(() => {
     fetchTodo()
   }, [])
 
+  // useEffect(() => {
+  //   console.log('todos', todos)
+  // }, [todos])
   return (
     <div>
       <input name="title" onChange={onChange} value={userTodo.title} />
       <button onClick={() => createTodo(userTodo)}>보내기</button>
-      <button onClick={getTodo}>get</button>
 
       <div>
         {todos.map((todo) => (
           <div key={todo.id} className="list">
             <p>{todo.title}</p>
-            <button
-              onClick={(id) => {
-                console.log(todo.id)
-                deleteTodo(id)
-              }}
-            >
-              삭제
-            </button>
+            <button onClick={() => deleteTodo(todo.id)}>삭제</button>
           </div>
         ))}
       </div>
