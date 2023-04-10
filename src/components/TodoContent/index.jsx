@@ -4,8 +4,8 @@ import axios from 'axios'
 import './style.css'
 
 function TodoContent() {
-  let [userTodo, setUserTodo] = useState({ title: '' })
-  let [todos, setTodos] = useState([])
+  const [userTodo, setUserTodo] = useState({ title: '' })
+  const [todos, setTodos] = useState([])
 
   const onChange = (e) => {
     const { name, value } = e.target
@@ -21,19 +21,29 @@ function TodoContent() {
     fetchTodo()
   }, [])
 
+  const deleteHandle = async (id) => {
+    await deleteTodo(id)
+    fetchTodo()
+  }
+
+  const createHandle = async () => {
+    await createTodo(userTodo)
+    fetchTodo()
+  }
+
   // useEffect(() => {
   //   console.log('todos', todos)
   // }, [todos])
   return (
     <div>
       <input name="title" onChange={onChange} value={userTodo.title} />
-      <button onClick={() => createTodo(userTodo)}>보내기</button>
+      <button onClick={() => createHandle()}>보내기</button>
 
       <div>
         {todos.map((todo) => (
           <div key={todo.id} className="list">
             <p>{todo.title}</p>
-            <button onClick={() => deleteTodo(todo.id)}>삭제</button>
+            <button onClick={() => deleteHandle(todo.id)}>삭제</button>
           </div>
         ))}
       </div>
